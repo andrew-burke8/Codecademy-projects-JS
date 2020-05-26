@@ -1,0 +1,73 @@
+
+
+const menu = {
+  _courses: {
+    appetizers: [],
+    mains: [],
+    desserts: [] },
+
+get appetizers () {
+    return this._courses.appetizers
+  },
+  set appetizers (appetizer) {
+    this._courses.appetizers.push(appetizer)
+  },
+  get mains () {
+    return this._courses.mains
+  },
+  set mains (main) {
+    this._courses.mains.push(main)
+  },
+  get desserts () {
+    return this._courses.desserts
+  },
+  set desserts (dessert) {
+    this._courses.desserts.push(dessert)
+  },
+
+  get courses() {
+      return {
+        appetizers: this.appetizers,
+        mains: this.mains,
+        desserts: this.desserts }
+  },
+
+addDishToCourse (courseName, dishName, dishPrice) {
+  const dish = {
+  name: dishName,
+  price: dishPrice,
+  };
+this._courses[courseName].push(dish);
+},
+
+
+getRandomDishFromCourse (courseName) {
+    const dishes = this._courses[courseName];
+    const randomIndex = Math.floor(Math.random() * dishes.length);  return dishes[randomIndex];
+},
+
+generateRandomMeal() {
+  const appetizer = this.getRandomDishFromCourse('appetizers');
+  const mains = this.getRandomDishFromCourse('mains');
+  const desserts = this.getRandomDishFromCourse('desserts');
+  const totalPrice = appetizer.price + mains.price + desserts.price;
+
+  return `Your meal is ${appetizer.name}, ${mains.name}, and ${desserts.name}. The price is ${totalPrice}.`;
+}
+
+
+
+};
+
+menu.addDishToCourse('appetizers', 'Chicken Fingers', 5.00);
+menu.addDishToCourse('appetizers', 'Cobb Salad',7.50);
+menu.addDishToCourse('appetizers', 'Nachos', 8.00);
+menu.addDishToCourse('mains', 'Cheese Burger', 12.00);
+menu.addDishToCourse('mains', 'Serloin Steak', 22.00);
+menu.addDishToCourse('mains', 'Chicken Parm', 17.00);
+menu.addDishToCourse('desserts', 'Crem brulee', 12.00);
+menu.addDishToCourse('desserts', 'Ice Cream Sundae', 8.00);
+menu.addDishToCourse('desserts', 'Brownie ala mode', 10.00);
+
+let meal = menu.generateRandomMeal();
+console.log(meal);
